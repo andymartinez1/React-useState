@@ -1,3 +1,6 @@
+import React from "react";
+import { useState } from "react";
+
 const messages = [
   "Research job market",
   "Apply for jobs",
@@ -5,28 +8,37 @@ const messages = [
 ];
 
 export default function App() {
-  const step = 1;
+  const [step, setStep] = useState(1);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="steps">
-      <div className="numbers">
-        <div className={`${step >= 1 ? "active" : ""}`}>1</div>
-        <div className={`${step >= 2 ? "active" : ""}`}>2</div>
-        <div className={`${step >= 3 ? "active" : ""}`}>3</div>
-      </div>
+    <React.Fragment>
+      <button className="close" onClick={() => setIsOpen(!isOpen)}>
+        &times;
+      </button>
 
-      <p className="message">
-        Step {step}: {messages[step - 1]}
-      </p>
+      {isOpen && (
+        <div className="steps">
+          <div className="numbers">
+            <div className={`${step >= 1 ? "active" : ""}`}>1</div>
+            <div className={`${step >= 2 ? "active" : ""}`}>2</div>
+            <div className={`${step >= 3 ? "active" : ""}`}>3</div>
+          </div>
 
-      <div className="buttons">
-        <button style={{ backgroundColor: "#7950f2", color: "#fff" }}>
-          Previous
-        </button>
-        <button style={{ backgroundColor: "#7950f2", color: "#fff" }}>
-          Next
-        </button>
-      </div>
-    </div>
+          <p className="message">
+            Step {step}: {messages[step - 1]}
+          </p>
+
+          <div className="buttons">
+            <button style={{ backgroundColor: "#7950f2", color: "#fff" }}>
+              Previous
+            </button>
+            <button style={{ backgroundColor: "#7950f2", color: "#fff" }}>
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+    </React.Fragment>
   );
 }
